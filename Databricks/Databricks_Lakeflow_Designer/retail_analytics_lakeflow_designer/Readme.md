@@ -1,189 +1,137 @@
-🚀 Databricks LakeFlow Analytics Hub
+# 🚀 Databricks LakeFlow Analytics Hub
 
 End-to-End Retail Data Engineering Pipeline built using Databricks Lakeflow Designer, featuring data ingestion, transformation, aggregation, AI-powered sentiment analysis, and analytics-ready outputs in Unity Catalog.
 
+---
 
-
-
-
-📌 Project Overview
+### 📌 Project Overview
 
 This project demonstrates how to build a complete Retail Analytics Platform using Databricks Lakeflow Designer.
 
 The pipeline integrates data from multiple sources, performs joins and transformations, generates business metrics, and enriches customer reviews using AI-powered sentiment analysis.
 
-The final outputs are stored in:
+The final outputs are stored in `designer_catalog.enr` for business reporting and analytics.
 
-designer_catalog.enr
+---
 
-for business reporting and analytics.
+### 🏗️ Architecture
 
-🏗️ Architecture
-Orders
-   │
-Order Items
-   │
-Customers
-   │
-Shipments
-   │
-Reviews
-   ▼
+```text
+Orders ────────┐
+Order Items ───┼─► Lakeflow Designer Pipeline
+Customers ─────┤    ├── Data Ingestion & Joins
+Shipments ─────┤    ├── Transformations & Aggregations
+Reviews ───────┘    └── Sentiment Analysis (AI)
+                         │
+                         ▼
+                    Unity Catalog (designer_catalog.analytics)
+                     ├── AggregatedOrders
+                     ├── OrderStatus
+                     └── Sentiment
+```
 
-Lakeflow Designer Pipeline
-   │
-   ├── Data Ingestion
-   ├── Joins
-   ├── Transformations
-   ├── Aggregations
-   ├── Sentiment Analysis (AI)
-   │
-   ▼
+---
 
-Unity Catalog
-designer_catalog.analytics
+### 🔥 Key Features
 
-   ├── AggregatedOrders
-   ├── OrderStatus
-   └── Sentiment
-🔥 Key Features
-Data Integration
-Orders
-Order Items
-Customers
-Shipments
-Reviews
-Data Engineering
-Multi-table joins
-Aggregations
-Sorting and filtering
-Feature enrichment
-AI Functions
-Sentiment Analysis using Databricks AI Functions
+* **Data Integration:** Unified ingestion for Orders, Order Items, Customers, Shipments, and Reviews.
+* **Data Engineering:** Multi-table joins, aggregations, sorting, filtering, and feature enrichment.
+* **AI Functions:** Sentiment Analysis using Databricks AI Functions:
+  ```sql
+  SELECT ai_analyze_sentiment(review_body); -- Outputs: positive, negative, neutral, mixed
+  ```
 
-Example:
+---
 
-ai_analyze_sentiment(review_body)
+### 📊 Pipeline Components
 
-Output:
+1. **Orders + Order Items Join:** Combines order information with purchased products using a `Left Join` on `order_id`.
+2. **Customer & Shipment Enrichment:** Enhances core order data with vital customer demographics and shipment tracking details.
+3. **Orders By City:** Aggregates and calculates `Total Orders`, `Revenue`, and `Order Counts` grouped by city.
+4. **Monthly Order Status Analysis:** Extracts tracking trends by organizing metrics into `Year`, `Month`, `Order Status`, and `Order Count`.
+5. **AI-Powered Sentiment Analysis:** Evaluates customer reviews (`review_body`) into structured tags: `Positive`, `Neutral`, `Negative`, or `Mixed`.
 
-positive
-negative
-neutral
-mixed
-📊 Pipeline Components
-1️⃣ Orders + Order Items Join
+---
 
-Combines order information with purchased products.
+### 📂 Output Tables
 
-Join Type
-Left Join
-Join Key
-order_id
-2️⃣ Customer & Shipment Enrichment
+#### 🔹 `designer_catalog.analytics.AggregatedOrders`
+*Business-level city-wise order insights.*
 
-Enhances order data with:
+| Column | Description |
+| :--- | :--- |
+| **City** | Customer City |
+| **TotalOrders** | Total Orders Placed |
+| **Revenue** | Revenue Metrics |
 
-Customer information
-Shipment details
-3️⃣ Orders By City
+#### 🔹 `designer_catalog.analytics.OrderStatus`
+*Monthly order status tracking.*
 
-Calculates:
+| Column | Description |
+| :--- | :--- |
+| **Year** | Order Year |
+| **Month** | Order Month |
+| **Status** | Order Status |
+| **Count** | Number of Orders |
 
-Total Orders
-Revenue
-Order Counts
+#### 🔹 `designer_catalog.analytics.Sentiment`
+*AI-generated sentiment insights.*
 
-Grouped by city.
+| Column | Description |
+| :--- | :--- |
+| **review_id** | Review Identifier |
+| **product_name** | Product Name |
+| **rating** | Product Rating |
+| **review_body** | Raw Review Content |
+| **sentiment_score** | AI Generated Sentiment |
 
-4️⃣ Monthly Order Status Analysis
+---
 
-Creates:
+### 📸 Project Screenshots
 
-Year
-Month
-Order Status
-Order Count
+<br>
 
-for trend analysis.
+#### Complete Lakeflow Pipeline
+<p align="center">
+  <img width="100%" alt="Complete Lakeflow Pipeline" src="https://github.com/user-attachments/assets/d5bca9cd-cc3b-4d91-b46f-4134a9cfbc89" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+</p>
 
-5️⃣ AI-Powered Sentiment Analysis
+<br>
 
-Reviews are analyzed using Databricks AI Functions.
+#### Orders Join Flow
+<p align="center">
+  <img width="90%" alt="Orders Join Flow" src="https://github.com/user-attachments/assets/5bfd18ef-6d9b-412e-b114-f9e5835d0978" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+</p>
 
-Input:
+<br>
 
-review_body
+#### Sentiment Analysis Node
+<p align="center">
+  <img width="90%" alt="Sentiment Analysis Node" src="https://github.com/user-attachments/assets/ac8e5315-8b5f-44d8-bfa1-44c05c5949c5" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+</p>
 
-Output:
+<br>
 
-sentiment_score
+#### Sentiment Output Data
+<p align="center">
+  <img width="100%" alt="Sentiment Output" src="https://github.com/user-attachments/assets/01f983d3-944f-4672-bc61-7ee387490aae" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+</p>
 
-Categories:
+<br>
 
-Positive
-Neutral
-Negative
-Mixed
-📂 Output Tables
-designer_catalog.analytics.AggregatedOrders
+---
 
-Business-level city-wise order insights.
+### 🛠️ Technologies Used
 
-Column	Description
-City	Customer City
-TotalOrders	Total Orders
-Revenue	Revenue Metrics
-designer_catalog.analytics.OrderStatus
+* **Orchestration & Compute:** Databricks Lakeflow Designer, Delta Tables, Python
+* **Governance & Storage:** Unity Catalog
+* **Analytics & AI:** Databricks SQL, Databricks AI Functions
+* **Dataset Domain:** Retail Analytics Dataset
 
-Monthly order status tracking.
+---
 
-Column	Description
-Year	Order Year
-Month	Order Month
-Status	Order Status
-Count	Number of Orders
-designer_catalog.analytics.Sentiment
+### 📈 Business Use Cases
 
-AI-generated sentiment insights.
-
-Column	Description
-review_id	Review Identifier
-product_name	Product Name
-rating	Rating
-review_body	Review Content
-sentiment_score	AI Sentiment
-📸 Project Screenshots
-Complete Lakeflow Pipeline
-![Pipeline](images/<img width="1317" height="678" alt="Screenshot 2026-06-12 212759" src="https://github.com/user-attachments/assets/5bfd18ef-6d9b-412e-b114-f9e5835d0978" />
-<img width="1556" height="540" alt="Screenshot 2026-06-12 210909" src="https://github.com/user-attachments/assets/d5bca9cd-cc3b-4d91-b46f-4134a9cfbc89" />
-.png)
-Orders Join Flow
-![Join Flow](images/orders_join.p![Uploading Screenshot 2026-06-12 212759.png…]()
-ng)
-Sentiment Analysis Node
-![Sentiment Analysis](images/sentiment_<img width="1357" height="711" alt="Screenshot 2026-06-12 213245" src="https://github.com/user-attachments/assets/ac8e5315-8b5f-44d8-bfa1-44c05c5949c5" />
-analysis.png)
-Sentiment Output
-![Sentiment Output](images/senti<img width="1548" height="705" alt="Screenshot 2026-06-12 213315" src="https://github.com/user-attachments/assets/01f983d3-944f-4672-bc61-7ee387490aae" />
-ment_output.png)
-🛠️ Technologies Used
-Databricks Lakeflow Designer
-Unity Catalog
-Databricks SQL
-Databricks AI Functions
-Delta Tables
-Python
-Retail Analytics Dataset
-📈 Business Use Cases
-Retail Analytics
-City-wise sales analysis
-Monthly order trend tracking
-Shipment monitoring
-Customer Insights
-Customer behavior analysis
-Product review analytics
-AI Analytics
-Sentiment analysis
-Voice of customer analytics
-Product feedback monitoring
+* **Retail Analytics:** City-wise sales volumes, monthly order trends, and shipment tracking optimization.
+* **Customer Insights:** In-depth customer behavior mapping paired with direct product review analytics.
+* **AI Analytics:** Enterprise-wide sentiment tracking, processing the "Voice of Customer" into actionable feature backlogs.
