@@ -155,15 +155,18 @@ review_body	Review Content
 sentiment_score	AI Sentiment
 📸 Project Screenshots
 Complete Lakeflow Pipeline
-![Pipeline](images/pipeline.png)
+![Pipeline](images/<img width="1317" height="678" alt="Screenshot 2026-06-12 212759" src="https://github.com/user-attachments/assets/5bfd18ef-6d9b-412e-b114-f9e5835d0978" />
+<img width="1556" height="540" alt="Screenshot 2026-06-12 210909" src="https://github.com/user-attachments/assets/d5bca9cd-cc3b-4d91-b46f-4134a9cfbc89" />
+.png)
 Orders Join Flow
-![Join Flow](images/orders_join.png)
+![Join Flow](images/orders_join.p![Uploading Screenshot 2026-06-12 212759.png…]()
+ng)
 Sentiment Analysis Node
-![Sentiment Analysis](images/sentiment_analysis.png)
+![Sentiment Analysis](images/sentiment_<img width="1357" height="711" alt="Screenshot 2026-06-12 213245" src="https://github.com/user-attachments/assets/ac8e5315-8b5f-44d8-bfa1-44c05c5949c5" />
+analysis.png)
 Sentiment Output
-![Sentiment Output](images/sentiment_output.png)
-Aggregation Pipeline
-![Aggregation](images/aggregation.png)
+![Sentiment Output](images/senti<img width="1548" height="705" alt="Screenshot 2026-06-12 213315" src="https://github.com/user-attachments/assets/01f983d3-944f-4672-bc61-7ee387490aae" />
+ment_output.png)
 🛠️ Technologies Used
 Databricks Lakeflow Designer
 Unity Catalog
